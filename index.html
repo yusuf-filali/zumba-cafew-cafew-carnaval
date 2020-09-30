@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Fluffy Giggle</title>
+    <title class="color">Fluffy Giggle</title>
     <style>
         body {
             background: #000000; 
@@ -21,14 +21,18 @@
         .life {
             color:white;
         }
+
+        .color{
+            color:white;
+        }
     </style>
 </head>
 
 <body>
     <div id="container"></div>
-    <div id="player1">
-        <strong>Joueur 1</strong>
-        <span class="life">3</span> vies
+    <div id="player1" >
+        <strong class="color">Joueur 1:</strong>
+        <span id="the_life" class="life">3</span> <strong class="color">vies</strong>
     </div>
 </body>
 
@@ -47,8 +51,10 @@
     var clock = new THREE.Clock();
     var player1,
         player2;
+    var enemy;
     var WIDTH = 600,
         HEIGHT = 400;
+    var life;
 
     init();
     animate();
@@ -73,6 +79,8 @@
             .css('width', WIDTH)
             .css('height', HEIGHT)
         ;
+
+
     });
 </script>
 </html>

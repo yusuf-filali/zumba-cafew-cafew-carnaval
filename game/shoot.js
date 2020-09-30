@@ -8,6 +8,11 @@ var bullet_player1_material = new THREE.MeshLambertMaterial(
 
 function shoot()
 {
+    if (1==1) {
+        var selectedObject = scene.getObjectByName(enemy.name);
+        scene.remove(selectedObject);
+        update();
+    }
     if (keyboard.pressed("space") && bulletTime1 + 0.8 < clock.getElapsedTime())
     {
         bullet = new THREE.Mesh(
@@ -51,7 +56,17 @@ function bullet_collision()
             player1.bullets.splice(i, 1);
             i--;
         }
+        if ((Math.abs(player1.bullets[i].position.x) >= enemy.graphic.position.x - 1 ||
+            Math.abs(player1.bullets[i].position.x) <= enemy.graphic.position.x + 1 ) &&
+            (Math.abs(player1.bullets[i].position.y) >= enemy.graphic.position.y - 1 ||
+                Math.abs(player1.bullets[i].position.y) <= enemy.graphic.position.y + 1 ))
+        {
+            scene.remove(enemy);
+        }
+
     }
+
+
 
 }
 
@@ -63,6 +78,8 @@ function player_collision()
 
     if ( x > WIDTH )
         player1.graphic.position.x -= x - WIDTH;
+    if ( x < 0 )
+        player1.graphic.position.x -= x;
     if ( y < 0 )
         player1.graphic.position.y -= y;
     if ( y > HEIGHT )
@@ -93,7 +110,7 @@ function player_falling()
             && (y > tileY) 
             && (y < mtileY))
         {
-           player1.dead();
+           player1.decrease_life();
         }
     }
 

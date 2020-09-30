@@ -37,6 +37,13 @@ Player.prototype.accelerate = function (distance) {
     }
 };
 
+Player.prototype.decrease_life = function (){
+    if (this.life < 1)
+        this.dead();
+    else
+        this.life -= 1;
+}
+
 Player.prototype.decelerate = function (distance) {
     var min = -1;
 
@@ -51,13 +58,14 @@ Player.prototype.displayInfo = function () {
 }
 
 Player.prototype.turnRight = function (angle) {
-    this.direction += angle;
-    this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), +angle);
+    this.direction -= angle;
+    this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), -angle);
 };
 
+//be able to turn left change + to minus
 Player.prototype.turnLeft = function (angle) {
     this.direction += angle;
-    this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), angle);
+    this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), +angle);
 };
 
 Player.prototype.move = function () {
