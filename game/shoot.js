@@ -8,11 +8,6 @@ var bullet_player1_material = new THREE.MeshLambertMaterial(
 
 function shoot()
 {
-    if (1==1) {
-        var selectedObject = scene.getObjectByName(enemy.name);
-        scene.remove(selectedObject);
-        update();
-    }
     if (keyboard.pressed("space") && bulletTime1 + 0.8 < clock.getElapsedTime())
     {
         bullet = new THREE.Mesh(
@@ -84,6 +79,12 @@ function player_collision()
         player1.graphic.position.y -= y;
     if ( y > HEIGHT )
         player1.graphic.position.y -= y - HEIGHT;
+
+    if (player1.graphic.position.x == enemy.graphic.position.x &&
+        player1.graphic.position.y == enemy.graphic.position.y){
+        player1.life -= 1;
+        alert(player1.life);
+    }
 
 }
 

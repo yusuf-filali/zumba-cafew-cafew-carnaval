@@ -24,9 +24,53 @@ function init()
 
     noGround = [];
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
-    
+
+
+
     player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
     enemy = new Player("Enemy", 0xffffff, new THREE.Vector2(0, 0), 50);
+    scene.add(player1.graphic);
+    scene.add(enemy.graphic);
+
+    light1 = new Light("sun", 0xffffff, "0,0,340");
+
+    scene.add(light1);
+
+}
+
+function init_not_the_end(life)
+{
+    $("#container").html("");
+    // set some camera attributes
+    var VIEW_ANGLE = 45,
+        ASPECT = WIDTH / HEIGHT,
+        NEAR = 0.1,
+        FAR = 10000;
+
+    $container = $('#container');
+    renderer = new THREE.WebGLRenderer();
+    camera = new THREE.PerspectiveCamera(VIEW_ANGLE,
+        ASPECT,
+        NEAR,
+        FAR);
+    scene = new THREE.Scene();
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    camera.position.z = 500;
+    scene.add(camera);
+
+    renderer.setSize(WIDTH, HEIGHT);
+
+    $container.append(renderer.domElement);
+
+    noGround = [];
+    ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
+
+
+
+    player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
+    enemy = new Player("Enemy", 0xffffff, new THREE.Vector2(0, 0), 50);
+    player1.life = life;
     scene.add(player1.graphic);
     scene.add(enemy.graphic);
 
@@ -54,12 +98,7 @@ function Ground(color, size_x, size_y, nb_tile)
             color = colors[Math.floor(Math.random()*colors.length)];
 
             if (x == 50 && y == 0) {
-                tmpGround = new THREE.Mesh(
-                    new THREE.PlaneGeometry(sizeOfTileX - 10, sizeOfTileY - 10),
-                    new THREE.MeshLambertMaterial({color: color, transparent: true, opacity: 0.6}));
-                tmpGround.position.x = x;
-                tmpGround.position.y = y;
-                scene.add(tmpGround);
+                continue;
             }
             else if (0x000000 != color)
             {

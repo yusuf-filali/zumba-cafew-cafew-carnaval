@@ -38,10 +38,12 @@ Player.prototype.accelerate = function (distance) {
 };
 
 Player.prototype.decrease_life = function (){
-    if (this.life < 1)
+    if (this.life <= 1)
         this.dead();
-    else
+    else {
         this.life -= 1;
+        init_not_the_end(this.life);
+    }
 }
 
 Player.prototype.decelerate = function (distance) {
